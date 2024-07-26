@@ -1,0 +1,2 @@
+GEN_COUNT = 100
+EPOCH = 1
