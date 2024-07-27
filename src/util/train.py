@@ -1,11 +1,11 @@
 from src.util.agent import Samurai
 from src.util.board import Board 
-from src.util.katana import Katana, Core, Core_v2
-from src.util.dataset import Dataset
+from src.util.katana import Katana, Core_v2, Core
+from src.util.dataset import BreadthDataset
 import random 
 from src.util.config import *
 from abc import ABC, abstractmethod
-from os import system, cpu_count
+from os import system
 import time
 import tf_keras as keras
 
@@ -59,12 +59,12 @@ class Daimyo(TrainEnvironment):
 class Shogun(TrainEnvironment):
     def __init__(self) -> None:
         super().__init__()
-        self.core = Core_v2()
-        self.dataset = Dataset.tf_dataset()
+        self.core = Core()
+        self.dataset = BreadthDataset.tf_dataset()
         self.epoch = EPOCH 
         inputs = keras.Input(shape=(19, 19, 4))
         self.model = keras.Model(inputs, self.core(inputs))
-        self.model.compile(loss=keras.losses.SparseCategoricalCrossentropy())
+        self.model.compile(loss=keras.losses.binary_crossentropy)
 
     def evolution(self):
         self.model.fit(self.dataset, 
