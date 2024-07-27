@@ -1,4 +1,3 @@
-from numpy._core.multiarray import array as array
 import pyspiel 
 import numpy as np
 from abc import ABC, abstractmethod
